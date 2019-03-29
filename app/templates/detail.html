@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}
+Detail
+{% endblock %}
+{% block main %}
+<div id="{{ post_item.title }}" class="full-code">
+  <div class="full-code-layout">
+    <div class="code-info">
+      <div class="info title-box">
+        <p id="title-item" class="info-item" style="background-color: rgba(255, 255, 255, 1); text-shadow: none; border: double #008080;">Title</p>
+        <div class="info-val title">
+          {{ post_item.title | safe }}
+        </div>
+      </div>
+      <div class="info description-box">
+        <p id="description-item" class="info-item" style="background-color: rgba(255, 255, 255, 1); text-shadow: none; border: double #008080;">Description</p>
+        <div class="info-val desc-text">
+          {{ post_item.description | safe }}
+        </div>
+      </div>
+      <div class="info url-box">
+        <p id="url-item" class="info-item" style="background-color: rgba(255, 255, 255, 1); text-shadow: none; border: double #008080;">URL</p>
+        <div class="info-val url">
+          <a href="{{ post_item.url }}">{{ post_item.title | safe }}</a>
+        </div>
+      </div>
+      <div class="info buttons button-box">
+        <a class="close-link" href="{{ url_for('index') }}">
+          <button id="close-btn" class="btn close-btn" type="button" name="button">Close</button>
+        </a>
+        {% if session.logged_in %}
+          <form class="delete-form" action="{{ url_for('delete', id=post_item.id) }}" method="post">
+            <button class="btn delete-btn" type="submit" name="button">Delete</button>
+          </form>
+        {% endif %}
+      </div>
+    </div>
+    <div class="code-data" style="background-image: url('{{ post_item.image_path }}');">
+      <div class="code-data-wrap">
+        <pre><code class="python">{{ post_item.code | safe }}</code></pre>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

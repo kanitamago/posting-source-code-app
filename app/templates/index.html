@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}
+Toppage
+{% endblock %}
+{% block main %}
+<div id="full-area" class="full-area">
+  <div id="login" class="login-area full-content">
+    <form class="login-form" action="{{ url_for('login') }}" method="post">
+      <div id="username" class="login-items">
+        <p class="login-item">Username</p><input type="text" name="username" autocomplete="off">
+      </div>
+      <div id="password" class="login-items">
+        <p class="login-item">Password</p><input type="password" name="password">
+      </div>
+      <div class="login-items">
+        <button class="btn" type="submit" name="button">Login</button>
+        <button class="btn cancel-btn" type="button" name="button">Cancel</button>
+      </div>
+    </form>
+  </div>
+  <div id="post" class="post-area full-content">
+    <form class="post-form" action="{{ url_for('post') }}" method="post">
+      <div class="post-items">
+        <p class="post-item">Title</p>
+        <input class="middle-input" type="text" name="title" autocomplete="off">
+      </div>
+      <div class="post-items">
+        <p class="post-item">Image Path</p>
+        <input class="middle-input" type="text" name="image_path" autocomplete="off">
+      </div>
+      <div class="post-items">
+        <p class="post-item">Description</p>
+        <textarea class="large-input" name="description"></textarea>
+      </div>
+      <div class="post-items">
+        <p class="post-item">URL</p>
+        <input class="middle-input" type="text" name="url" autocomplete="off">
+      </div>
+      <div class="post-items">
+        <p class="post-item">Code</p>
+        <textarea class="large-input" name="code"></textarea>
+      </div>
+      <div class="post-items">
+        <button class="btn" type="submit" name="button">Post</button>
+        <button class="btn cancel-btn" type="button" name="button">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="code-area">
+  <div class="code-area-wrap">
+    <!--アイテムが存在した場合のエリア-->
+    {% if posted_items %}
+      <!--ここからfor文で回す-->
+      {% for post_item in posted_items %}
+        <div class="code-items">
+          <a href="{{ url_for('detail', id=post_item.id) }}" class="code-content" data-code-title="{{ post_item.title }}">
+            <img class="code-image" src="{{ post_item.image_path }}" alt="{{ post_item.title }}">
+            <p class="code-title">{{ post_item.title | safe }}</p>
+          </a>
+        </div>
+      {% endfor %}
+      <!--終了-->
+    {% endif %}
+    <!--アイテムが存在した場合のエリア-->
+  </div>
+</div>
+<div class="menu-area">
+  <div class="title-area">
+    <h1>
+      <a href="{{ url_for('index') }}">
+        Posting Source Code
+      </a>
+    </h1>
+  </div>
+  {% if not session.logged_in %}
+    <!--ログイン画面表示ボタン > 未ログイン時のみ表示-->
+    <button id="login-btn" class="menu-btn" type="button" name="button" data-show-area="login">Login Menu</button>
+  {% else %}
+    <!--投稿フォーム表示ボタン > ログイン時のみ表示-->
+    <form class="logout-form" action="{{ url_for('logout') }}" method="post">
+      <button id="logout-btn" type="submit" name="button">Logout</button>
+    </form>
+    <button id="post-btn" class="menu-btn" type="button" name="button" data-show-area="post">Post Menu</button>
+  {% endif %}
+  <p id="description">※"Pythonに慣れること"を第一の目的として書いたコードです。</p>
+</div>
+{% endblock %}
