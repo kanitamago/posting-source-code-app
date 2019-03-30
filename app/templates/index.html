@@ -55,7 +55,7 @@ Toppage
       {% for post_item in posted_items %}
         <div class="code-items">
           <a href="{{ url_for('detail', id=post_item.id) }}" class="code-content" data-code-title="{{ post_item.title }}">
-            <img class="code-image" src="{{ post_item.image_path }}" alt="{{ post_item.title }}">
+            <img class="obj-fit-img code-image" src="{{ post_item.image_path }}" alt="{{ post_item.title }}">
             <p class="code-title">{{ post_item.title | safe }}</p>
           </a>
         </div>
