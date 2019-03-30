@@ -23,6 +23,10 @@
   <script>
     hljs.initHighlightingOnLoad();
   </script>
+  <script src="{{ url_for('static', filename='js/ofi.min.js') }}"></script>
+  <script>
+    objectFitImages('img.code-image');
+  </script>
   <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
   </body>
 </html>
